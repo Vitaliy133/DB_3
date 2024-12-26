@@ -1,3 +1,41 @@
+-- блок задания 2
+
+-- Самый длинный трек
+SELECT name, duration
+FROM Tracks
+ORDER BY duration DESC
+LIMIT 1;
+
+-- Названия треков с продолжительностью не менее 3,5 минут
+SELECT name
+FROM Tracks
+WHERE duration >= '00:03:30';
+
+-- Названия сборников, вышедших с 2018 по 2020 годы
+-- В таблице таких изначально не было, поэтому сначала добавлю сборник
+INSERT INTO Compilations (name, release_date) VALUES
+('2018 Hits', 2018);
+
+-- Потом сам запрос на выборку
+SELECT name
+FROM Compilations
+WHERE release_date BETWEEN 2018 AND 2020;
+
+-- Исполнители, чьё имя состоит из одного слова
+SELECT name
+FROM Artists
+WHERE name NOT LIKE '% %'; 
+
+-- Названия треков, содержащих 'мой' или 'my'
+SELECT name
+FROM Tracks
+WHERE name ILIKE '%мой%' OR name ILIKE '%my%';
+
+
+
+
+-- Блок задания 3
+
 -- Количество исполнителей в каждом жанре
 SELECT g.name AS genre_name, COUNT(ag.artist_id) AS artist_count
 FROM Genres g
@@ -10,6 +48,7 @@ INSERT INTO Albums (tittle, release_date) VALUES
 ('Second Album', 2020),
 ('Third Album', 2019);
 
+-- В таблице изначально не было треков, попадающих в выборку, поэтому добавляю их
 INSERT INTO Tracks (name, duration, album_id) VALUES
 ('Track1', '00:04:30', 6),
 ('Track2', '00:03:31', 7),
