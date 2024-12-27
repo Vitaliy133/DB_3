@@ -27,12 +27,35 @@ FROM Artists
 WHERE name NOT LIKE '% %'; 
 
 -- Названия треков, содержащих 'мой' или 'my'
+-- Добавляю тестовый альбом (индекс - 9)
+INSERT into Albums (tittle, release_date) 
+VALUES ('Test_album', 2024);
+
+--Добавляю тестовые треки
+INSERT INTO Tracks (name, duration, album_id)
+VALUES ('my own', '00:03:45', 9),
+       ('own my', '00:04:20', 9),
+       ('my', '00:02:50', 9),
+       ('oh my god', '00:03:45', 9),
+       ('myself', '00:04:20', 9),
+       ('by myself', '00:02:50', 9),
+       ('bemy self', '00:03:45', 9),
+       ('myself by', '00:04:20', 9),
+       ('by myself by', '00:02:50', 9),
+       ('beemy', '00:03:45', 9),
+       ('premyne', '00:02:50', 9);
+
+--Сам запрос на выборку треков, содержащих 'мой' или 'my'
 SELECT name
 FROM Tracks
-WHERE name ILIKE '%мой%' OR name ILIKE '%my%';
-
-
-
+WHERE name ILIKE 'мой %' -- Слово 'мой' в начале строки
+OR name ILIKE '% мой' -- Слово 'мой' в конце строки
+OR name ILIKE '% мой %' -- Слово 'мой' в середине строки
+OR name ILIKE 'мой' -- Слово 'мой' - название трека из одного слова
+OR name ILIKE 'my %' -- Слово 'my' в начале строки
+OR name ILIKE '% my' -- Слово 'my' в конце строки
+OR name ILIKE '% my %' -- Слово 'my' в середине строки
+OR name ILIKE 'my'; -- Слово 'my' - название трека из одного слова
 
 -- Блок задания 3
 
